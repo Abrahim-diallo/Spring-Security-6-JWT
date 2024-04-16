@@ -1,0 +1,33 @@
+# Configuration de la source de données PostgreSQL
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver # Pilote JDBC PostgreSQL
+    url: jdbc:postgresql://localhost:5432/spring_security_db # URL de connexion à la base de données
+    username: postgres # Nom d'utilisateur de la base de données
+    password: postgres # Mot de passe de la base de données
+
+  # Configuration de JPA et Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Génère automatiquement les tables de la base de données
+    show-sql: true # Affiche les requêtes SQL dans les logs
+    properties:
+      hibernate:
+        format_sql: true # Formate les requêtes SQL pour une meilleure lisibilité
+    database: postgresql # Utilise le dialecte PostgreSQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # Spécifie le dialecte PostgreSQL
+
+# Configuration du serveur
+server:
+  port: 8888 # Port d'écoute du serveur
+
+# Configuration de la sécurité JWT
+application:
+  security:
+    jwt:
+      secret-key: 3dc85796bbb715c0a9d524da1b98f57f1017dbe66cae672294c9ad4e92a9948c      # Clé secrète pour signer les jetons JWT
+      expiration: 86400000 # Durée de validité du jeton d'accès (24 heures)
+      cookie-name: jwt-cookie # Nom du cookie contenant le jeton d'accès
+      refresh-token:
+        expiration: 1296000000 # Durée de validité du jeton de rafraîchissement (15 jours)
+        cookie-name: refresh-jwt-cookie # Nom du cookie contenant le jeton de rafraîchissement
